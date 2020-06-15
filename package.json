@@ -1,0 +1,15 @@
+{
+  "name": "historycheck",
+  "version": "1.0.0",
+  "description": "See how many cheaters you have played",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "John Fontaine",
+  "license": "MIT Open Source",
+  "dependencies": {
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
+  }
+}
