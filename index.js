@@ -1,5 +1,6 @@
 const fs = require('fs');
 const rp = require('request-promise');
+const cliProgress = require('cli-progress');
 var myArgs = process.argv.slice(2);
 if (myArgs.length != 1) {
     console.log("Usage: node index.js <username>");
@@ -30,7 +31,7 @@ async function find_cheaters(username) {
     //get last 4 months
     console.log("Fetching games and unique opponents for last 3 months")
     for (var i = archives.archives.length-1 ; i > archives.archives.length-4; i--) {
-        
+
         if (i < 0) {
             break;
         }
@@ -53,16 +54,17 @@ async function find_cheaters(username) {
     var cheaters = [];
     console.log("Getting opponent data");
     var x = 0;
+    const bar1 = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
+    bar1.start(opponents.size, 0);
     for (var opponent of opponents.entries()) {
         x++;
-        if (x % 10 == 0) {
-            console.log("Fetched " + x + " of " +  opponents.size + " Opponents" )
-        }
         var player = await get_player(opponent[0]);
         if (player.status == "closed:fair_play_violations") {
             cheaters.push(opponent[0]);
-        } 
+        }
+        bar1.update(x)
     }
+    bar1.stop()
     console.log("Got " + opponents.size + " Opponents" + " Found " + cheaters.length + " opponents with accounts closed for fairplay violations");
     return cheaters;
 }
