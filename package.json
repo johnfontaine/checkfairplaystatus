@@ -9,6 +9,7 @@
   "author": "John Fontaine",
   "license": "MIT Open Source",
   "dependencies": {
+    "cli-progress": "^3.8.2",
     "request": "^2.88.2",
     "request-promise": "^4.2.5"
   }
